@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111;
+      --primary: #4a6cf7;
+      --card: #f4f4f4;
+    }
+
+    body.dark {
+      --bg: #111;
+      --text: #fff;
+      --card: #1e1e1e;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: 0.3s;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 10px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn {
+      padding: 8px 12px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      background: var(--primary);
+      color: white;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 15px;
+      border-radius: 10px;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .filters {
+      margin-bottom: 15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+      background: var(--card);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>My Portfolio</h1>
+  <button class="btn" onclick="toggleTheme()">Toggle Dark Mode</button>
+</header>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="container">
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I am a student learning web development. This portfolio shows my HTML, CSS, and JavaScript skills.</p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <div class="filters">
+      <button class="btn" onclick="filterProjects('all')">All</button>
+      <button class="btn" onclick="filterProjects('web')">Web</button>
+      <button class="btn" onclick="filterProjects('js')">JavaScript</button>
+    </div>
+
+    <div class="projects">
+
+      <div class="card project web">
+        <h3>Landing Page</h3>
+        <p>Simple responsive landing page.</p>
+      </div>
+
+      <div class="card project js">
+        <h3>Calculator</h3>
+        <p>JS calculator app.</p>
+      </div>
+
+      <div class="card project web">
+        <h3>Blog Layout</h3>
+        <p>Multi-section blog design.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+
+    <form onsubmit="return validateForm()">
+      <input type="text" id="name" placeholder="Your Name" />
+      <input type="email" id="email" placeholder="Your Email" />
+      <textarea id="message" placeholder="Message"></textarea>
+      <button class="btn" type="submit">Send</button>
+    </form>
+
+    <p id="error" style="color:red;"></p>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 My Portfolio</p>
+</footer>
+
+<script>
+  // DARK MODE
+  function toggleTheme() {
+    document.body.classList.toggle("dark");
+  }
+
+  // FILTER PROJECTS
+  function filterProjects(type) {
+    let projects = document.querySelectorAll(".project");
+
+    projects.forEach(p => {
+      if (type === "all") {
+        p.style.display = "block";
+      } else {
+        p.style.display = p.classList.contains(type) ? "block" : "none";
+      }
+    });
+  }
+
+  // FORM VALIDATION
+  function validateForm() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
+    let error = document.getElementById("error");
+
+    if (!name || !email || !message) {
+      error.textContent = "Please fill in all fields!";
+      return false;
+    }
+
+    error.textContent = "";
+    alert("Message sent successfully!");
+    return false;
+  }
+</script>
+
+</body>
+</html>
